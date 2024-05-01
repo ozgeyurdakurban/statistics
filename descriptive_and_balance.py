@@ -7,6 +7,8 @@ Created on Wed May  1 03:50:07 2024
 
 import pandas as pd 
 from scipy.stats import chi2_contingency
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load the dataset
 data_path = r"C:\Users\eoyur\OneDrive - itu.edu.tr\research\homophily-paper\tests\descriptive_and_balance.xlsx"
@@ -62,3 +64,42 @@ for group1, group2 in comparisons:
 # Convert results to DataFrame for better display
 balance_test_pairs_results = pd.DataFrame(balance_test_pairs)
 balance_test_pairs_results.sort_values(by=['Variable', 'Comparison'])
+
+
+
+
+# the distribution graphs for each of categorical variables 
+# Set up the matplotlib figure
+plt.figure(figsize=(20, 18))
+variables = ['gpa', 'dep', 'age', 'gender', 'education', 'income', 'h.income', 'fate', 'belief', 'riska']
+n_rows = 5
+n_cols = 2
+
+# Create a subplot for each categorical variable
+for index, variable in enumerate(variables):
+    plt.subplot(n_rows, n_cols, index + 1)
+    sns.countplot(x=variable, data=data)
+    plt.title(f'Distribution of {variable}')
+    plt.xlabel(f'{variable} values')
+    plt.ylabel('Count')
+
+plt.tight_layout()
+plt.show()
+
+# Plotting each categorical variable in separate figures
+
+for variable in variables:
+    plt.figure(figsize=(10, 6))
+    sns.countplot(x=variable, data=data, palette='Set2')
+    plt.title(f'Distribution of {variable}')
+    plt.xlabel(f'{variable} values')
+    plt.ylabel('Count')
+    plt.show()
+
+
+
+
+
+
+
+
